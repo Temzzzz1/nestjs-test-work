@@ -1,0 +1,41 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  name: String!
+  friends: [String!]!
+  groups: [String!]!
+}
+
+type Group {
+  id: String!
+  name: String!
+  members: [String!]!
+}
+
+type Query {
+  users: [User!]!
+  groups: [Group!]!
+}
+
+type Mutation {
+  createUser(createUserData: CreateUserInput!): User!
+  deleteUser(id: String!): User!
+  addFriend(friendId: String!, userId: String!): User!
+  subscribeToGroup(groupId: String!, userId: String!): User!
+  createGroup(createGroupData: CreateGroupInput!): Group!
+  deleteGroup(id: String!): Group!
+  addUser(userId: String!, groupId: String!): Group!
+}
+
+input CreateUserInput {
+  id: Float!
+  name: String!
+}
+
+input CreateGroupInput {
+  id: String!
+  name: String!
+}

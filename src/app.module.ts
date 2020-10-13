@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { GroupModule } from './group/group.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { GraphQLModule } from '@nestjs/graphql';
 
 
 const enviroment = process.env.NODE_ENV || 'development'
@@ -14,6 +15,7 @@ const enviroment = process.env.NODE_ENV || 'development'
 @Module({
   imports: [
     UserModule,
+    GroupModule,
 
     ConfigModule.forRoot({
       envFilePath: `.env.${enviroment}`,
@@ -28,18 +30,10 @@ const enviroment = process.env.NODE_ENV || 'development'
       }
     ),
 
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: 5432,
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: 'test',
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true
+    GraphQLModule.forRoot({
+      installSubscriptionHandlers: true,
+      autoSchemaFile: 'schema.gql',
     }),
-
-    GroupModule,
   ],
 })
 export class AppModule {}
